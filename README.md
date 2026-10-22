@@ -1,12 +1,12 @@
 # FoodDispatch_OJT
 
-# 🍔 FoodDispatch — Live Food Order Dispatch & Driver Tracking
+# FoodDispatch — Live Food Order Dispatch & Driver Tracking
 
 **FoodDispatch** is a hyper-local food delivery tracking application designed to simplify communication between customers, delivery drivers, and restaurants. It helps customers track their order progress while allowing drivers and restaurants to manage deliveries through a simple, responsive dashboard.
 
 This project is being developed as part of the **Semester 1 On-the-Job Training (OJT) — Product Development, 2026**.
 
-## 🎯 Project Objectives
+## Project Objectives
 
 - Enable customers to check their food order status.
 - Allow drivers to view assigned deliveries and update order progress.
@@ -14,7 +14,7 @@ This project is being developed as part of the **Semester 1 On-the-Job Training 
 - Demonstrate driver location tracking through live or simulated location updates.
 - Provide a responsive interface for both desktop and mobile devices.
 
-## ✨ Key Features
+## Key Features
 
 - **Order Tracking:** View the current status of food orders.
 - **Driver Dashboard:** View assigned deliveries and update delivery statuses.
@@ -26,7 +26,7 @@ This project is being developed as part of the **Semester 1 On-the-Job Training 
 - **Data Export:** Export the main order table to CSV or PDF as an additional feature.
 - **Role-Based Actions:** Restrict actions based on whether the user is a customer, driver, or restaurant.
 
-## 👥 User Roles
+## User Roles
 
 | Role | Responsibilities |
 |---|---|
@@ -34,7 +34,7 @@ This project is being developed as part of the **Semester 1 On-the-Job Training 
 | Driver | View assigned orders and update delivery status. |
 | Restaurant | Manage incoming orders and update food preparation status. |
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Core Technologies
 
@@ -52,7 +52,7 @@ This project is being developed as part of the **Semester 1 On-the-Job Training 
 
 *Optional technologies will be explored after the core requirements are working.*
 
-## 🔄 Order Workflow
+## Order Workflow
 
 The expected order lifecycle is:
 
@@ -60,13 +60,13 @@ The expected order lifecycle is:
 
 The application will display order progress and allow authorized users to perform the appropriate status updates.
 
-## 📍 Driver Tracking
+## Driver Tracking
 
 FoodDispatch aims to provide visibility into delivery progress through driver location updates.
 
 For the initial demonstration, the application may use simulated coordinates or periodically updated sample locations. Actual GPS tracking and real-time location streaming can be explored as future enhancements.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -95,7 +95,7 @@ For the initial demonstration, the application may use simulated coordinates or 
 
 *If the project uses React + Vite in the future, the setup instructions will be updated accordingly.*
 
-## 🧪 Testing Checklist
+## Testing Checklist
 
 - [ ] Sample orders display correctly.
 - [ ] Customers can view their order status.
@@ -108,7 +108,7 @@ For the initial demonstration, the application may use simulated coordinates or 
 - [ ] The layout works on desktop and mobile screen sizes.
 - [ ] The complete core workflow can be demonstrated successfully.
 
-## 📦 Expected Deliverables
+## Expected Deliverables
 
 - Working FoodDispatch web application
 - Sample order and driver data
@@ -117,7 +117,7 @@ For the initial demonstration, the application may use simulated coordinates or 
 - Critical-path testing checklist
 - Deployed demonstration using GitHub Pages or Vercel
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
 - Real-time GPS tracking for delivery drivers
 - Interactive maps with route visualization
@@ -126,7 +126,7 @@ For the initial demonstration, the application may use simulated coordinates or 
 - Authentication and secure role-based access
 - Estimated delivery time calculations
 
-## 🎓 Project Information
+## Project Information
 
 | Detail | Description |
 |---|---|
@@ -138,11 +138,11 @@ For the initial demonstration, the application may use simulated coordinates or 
 | Primary Stack | HTML, CSS, JavaScript, Bootstrap 5 |
 | Deployment | GitHub Pages or Vercel |
 
-## 👩‍💻 Author
+## Author
 
-**Sampreeti Ghosh**
+**Sampreeti Ghosh** **Vaishnavi Ayithepalli**
 
-Computer Science Engineering Student  
+Computer Science Engineering Students 
 Product Development OJT — 2026
 
 ---
