@@ -140,9 +140,10 @@ For the initial demonstration, the application may use simulated coordinates or 
 
 ## Author
 
-**Sampreeti Ghosh** **Vaishnavi Ayithepalli**
+**Sampreeti Ghosh** | **Vaishnavi Ayithepalli**
 
-Computer Science Engineering Students 
+Computer Science Engineering Students
+
 Product Development OJT — 2026
 
 ---
