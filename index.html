@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FoodDispatch. Live food order status and driver tracking</title>
+<script>document.documentElement.classList.add('js')</script>
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Kaushan+Script&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/landing.css">
+</head><body>
+<header class="hero" id="hero">
+<nav aria-label="Main"><a class="logo" href="#hero">FoodDispatch</a><a href="#restaurants">Restaurants</a><a href="#how">How it works</a><a href="#track">Live tracking</a><a href="#one">Why us</a><a href="#history">History</a><a href="#login">Log in</a><a href="#about">About</a></nav>
+<h1 class="brand" id="brand"><span class="w">Food</span> <span class="w">Dispatch</span></h1>
+<p class="tag">Hyper-local food, tracked live from kitchen to door.</p>
+<button class="arrow l" id="prev" aria-label="Previous dish">‹</button><button class="arrow r" id="next" aria-label="Next dish">›</button>
+<div class="stage" id="stage"></div><div class="cap" id="cap" aria-live="polite"></div>
+</header>
+<div class="marq" aria-hidden="true"><div id="mq"></div></div>
+<section class="promise"><div class="wrap">
+<div class="eyebrow rv"><b>01</b> The promise</div>
+<p class="big" id="big">Order from a kitchen nearby. We assign the nearest driver, stream their position and <span class="g">tell you exactly when it arrives.</span></p>
+<div class="stats"><div class="rv"><b data-n="6">0</b><span>Order stages, Placed to Delivered</span></div><div class="rv" style="--d:1"><b data-n="3">0</b><span>Roles: customer, restaurant, driver</span></div><div class="rv" style="--d:2"><b data-n="30" data-pre="&lt;" data-suf="s">0</b><span>To see live status and ETA</span></div></div>
+</div></section>
+<section class="bento"><div class="wrap"><div class="bg">
+<div class="tile t-a rv"><div class="s">dig in.</div></div>
+<div class="tile t-b rv" style="--d:1"><img data-img="pizza" alt="Pizza"></div>
+<div class="tile t-c rv" style="--d:2"><h3>Right role. Right step.</h3><p>Only the assigned driver can mark this order as delivered.</p></div>
+<div class="tile t-d rv" style="--d:3" id="dots"><div class="dots"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i></div><p>Placed, Accepted, Preparing, Ready, Picked up, Delivered. One shared order record, updated as each role acts.</p></div>
+</div></div></section>
+<section class="menu" id="restaurants"><div class="wrap">
+<div class="eyebrow rv"><b>02</b> Restaurants</div>
+<h2 class="rv">Nearby <em>kitchens.</em></h2>
+<div class="fl"><div class="chips" id="cu" role="group" aria-label="Filter by cuisine"><small>Cuisine</small></div><div class="chips" id="rd" role="group" aria-label="Delivery radius"><small>Within</small></div></div>
+<div class="grid" id="grid" aria-live="polite"></div>
+</div></section>
+<section class="how" id="how" aria-label="How it works"><div class="pin"><div class="wrap">
+<div class="eyebrow" style="justify-content:center"><b>03</b> How it works</div>
+<h2>Three roles. <em>One order.</em></h2>
+<div class="trk" id="trk"><div class="fill" id="fill"></div><div class="pl" id="pl"><img data-img="biryani" alt=""></div></div>
+<div class="steps" id="steps"><div><small>01 · Customer</small><h3>Order</h3><p>Pick a nearby restaurant, add items and place the order.</p></div><div><small>02 · Restaurant</small><h3>Prepare</h3><p>Accept, prepare and mark it Ready. The nearest free driver is assigned.</p></div><div><small>03 · Driver</small><h3>Deliver</h3><p>Pick up, follow the trip and mark Delivered. The customer sees every step.</p></div></div>
+</div></div></section>
+<section class="one" id="one"><div class="wrap">
+<div class="eyebrow rv"><b>04</b> What makes us different</div>
+<h2 class="rv">One interface. <em>Every role.</em></h2>
+<p class="lead rv">No separate apps to download. Customers, restaurants and delivery partners all log in from the same place, on a laptop or a phone.</p>
+<div class="cmp"><div class="old rv"><b>The usual way</b><s>A customer app, a restaurant app and a driver app. Three downloads, three screens, no shared picture of the order.</s></div><div class="new rv" style="--d:1"><b>FoodDispatch</b>One link. Pick your role and you are in. Everyone sees the same live order record.</div></div>
+<div class="roles"><div class="role rv" style="background:#F2725B"><div class="ic"><i class="cu" aria-hidden="true"></i></div><h3>Customer</h3><p>Order, track and know when it arrives.</p></div><div class="role rv" style="background:#DAA520;--d:1"><div class="ic"><i class="re" aria-hidden="true"></i></div><h3>Restaurant</h3><p>See the order queue. Accept, prepare, mark Ready.</p></div><div class="role rv" style="background:#E8C39E;--d:2"><div class="ic"><i class="de" aria-hidden="true"></i></div><h3>Delivery partner</h3><p>Accept, pick up and deliver nearby orders.</p></div></div>
+</div></section>
+<section class="track" id="track"><div class="wrap"><div class="tg">
+<div><div class="eyebrow"><b>05</b> Live tracking</div><h2>Watch it <em>arrive.</em></h2>
+<ol class="tl" id="tl"></ol><p class="eta" id="eta" role="status" aria-live="polite"></p><button class="btn alt" id="replay">Replay sample order</button></div>
+<div class="map" aria-label="Simulated map with restaurant, driver and your address"><svg viewBox="0 0 100 100" aria-hidden="true"><line x1="24" y1="70" x2="76" y2="30" stroke="#F5E5C0" stroke-width=".8" stroke-dasharray="2 2"/></svg>
+<div class="pin2" style="left:24%;top:70%"><i></i>Restaurant</div><div class="pin2" style="left:76%;top:30%"><i></i>You</div><div class="drv" id="drv" title="Driver"></div></div>
+</div></div></section>
+<section class="tickets" id="history"><div class="wrap">
+<div class="eyebrow rv"><b>06</b> Order history</div>
+<h2 class="rv">Straight from the <em>pass.</em></h2>
+<div class="tk" id="tk"></div>
+</div></section>
+<section class="cta login" id="login"><div class="wrap">
+<div class="script">Pick your role and you are in</div>
+<h2>Hungry <em>yet?</em></h2>
+<p class="sub">Choose how to log in.</p>
+<form id="lf" onsubmit="return false">
+<fieldset><legend>Log in as</legend>
+      <label class="opt" style="--c:#F2725B"><input type="radio" name="role" value="Customer" checked><div class="ic"><i class="cu" aria-hidden="true"></i></div><h3>Customer</h3><p>Order food and follow it live.</p></label>
+      <label class="opt" style="--c:#DAA520"><input type="radio" name="role" value="Restaurant"><div class="ic"><i class="re" aria-hidden="true"></i></div><h3>Restaurant</h3><p>Manage the order queue.</p></label>
+      <label class="opt" style="--c:#E8C39E"><input type="radio" name="role" value="Delivery partner"><div class="ic"><i class="de" aria-hidden="true"></i></div><h3>Delivery partner</h3><p>Pick up and deliver orders.</p></label>
+    </fieldset>
+<div class="lgo"><button class="btn" id="go" type="submit">Continue as Customer →</button><p id="lm" role="status" aria-live="polite"></p></div>
+</form>
+<small>Demo only: this is a role selector, not a real account system.</small>
+</div></section>
+<footer id="about"><p><b>About this demo.</b> Restaurants, drivers and orders are sample data. Driver positions are simulated by a timer, not real GPS, and nothing is sent over a network.</p><p>© 2026 FoodDispatch. · PST_PD_031 · Vaishnavi Ayithepalli &amp; Sampreeti Ghosh</p></footer>
+
+<div class="auth" id="auth" role="dialog" aria-modal="true" aria-labelledby="au-t" hidden>
+<button class="au-back" id="au-back" type="button">← Back to home</button>
+<div class="au-hill" aria-hidden="true"><svg viewBox="0 0 1440 320" preserveAspectRatio="none"><path fill="#6E6F33" d="M0 170C300 50 600 130 900 80S1300 50 1440 110V320H0Z"/><path fill="#4E6E58" d="M0 235C240 145 520 205 820 165S1260 135 1440 195V320H0Z"/></svg></div>
+<img class="au-d egg" data-img="egg" alt=""><img class="au-d ly" data-img="lily-yellow" alt=""><img class="au-d vp" data-img="vada-pav" alt=""><img class="au-d wr" data-img="wrap" alt=""><img class="au-d cr" data-img="croissant" alt=""><img class="au-d lp" data-img="lily-pink" alt=""><img class="au-d sa" data-img="samosa" alt=""><img class="au-d cu2" data-img="cupcake" alt=""><img class="au-d ch" data-img="chicken-leg" alt=""><div class="au-wrap"><div class="au-logo">FoodDispatch</div>
+<div class="au-card">
+<div id="au-form"><h2 id="au-t">Welcome <em>back.</em></h2><p class="au-sub">Log in or create an account to order.</p>
+<fieldset class="au-roles"><legend>I am a</legend><label class="rc" style="--c:#F2725B"><input type="radio" name="au-role" value="Customer" checked><span class="ic"><i class="cu" aria-hidden="true"></i></span>Customer</label><label class="rc" style="--c:#DAA520"><input type="radio" name="au-role" value="Restaurant"><span class="ic"><i class="re" aria-hidden="true"></i></span>Restaurant</label><label class="rc" style="--c:#E8C39E"><input type="radio" name="au-role" value="Delivery partner"><span class="ic"><i class="de" aria-hidden="true"></i></span>Delivery partner</label></fieldset>
+<div class="au-tabs" role="tablist" aria-label="Log in or sign up"><button type="button" role="tab" id="tb-in" aria-selected="true" aria-controls="f-in">Log in</button><button type="button" role="tab" id="tb-up" aria-selected="false" aria-controls="f-up" tabindex="-1">Sign up</button></div>
+<form class="au-f" id="f-in" role="tabpanel" aria-labelledby="tb-in" novalidate><label for="li-email">Email</label><input id="li-email" type="email" autocomplete="email" aria-describedby="li-email-e"><span class="err" id="li-email-e"></span><label for="li-pw">Password</label><div class="pw"><input id="li-pw" type="password" autocomplete="current-password" aria-describedby="li-pw-e"><button type="button" data-show="li-pw" aria-label="Show password">Show</button></div><span class="err" id="li-pw-e"></span><button class="au-go" type="submit">Log in</button><button class="au-link" type="button" id="forgot">Forgot password?</button></form>
+<form class="au-f" id="f-up" role="tabpanel" aria-labelledby="tb-up" hidden novalidate><label for="su-name">Full name</label><input id="su-name" type="text" autocomplete="name" aria-describedby="su-name-e"><span class="err" id="su-name-e"></span><label for="su-email">Email</label><input id="su-email" type="email" autocomplete="email" aria-describedby="su-email-e"><span class="err" id="su-email-e"></span><label for="su-pw">Password (6+ characters)</label><div class="pw"><input id="su-pw" type="password" autocomplete="new-password" aria-describedby="su-pw-e"><button type="button" data-show="su-pw" aria-label="Show password">Show</button></div><span class="err" id="su-pw-e"></span><label for="su-pw2">Confirm password</label><div class="pw"><input id="su-pw2" type="password" autocomplete="new-password" aria-describedby="su-pw2-e"><button type="button" data-show="su-pw2" aria-label="Show password">Show</button></div><span class="err" id="su-pw2-e"></span><label class="chk"><input type="checkbox" id="su-ok" aria-describedby="su-ok-e">I understand this is a demo and my details are not sent anywhere.</label><span class="err" id="su-ok-e"></span><button class="au-go" type="submit">Create account</button></form>
+<p class="au-msg" id="au-msg" role="status" aria-live="polite"></p>
+<p class="au-note">Demo only. Any valid email and a 6+ character password will work. Passwords are never stored.</p></div>
+<div id="au-done" hidden><div class="ic" id="dn-ic"><i aria-hidden="true"></i></div><h2 id="dn-t" tabindex="-1">You’re <em>in.</em></h2><p id="dn-p"></p><div class="au-row"><button class="au-go" type="button" id="dn-open">Open my page</button><button class="au-go alt" type="button" id="dn-home">Back to home</button><button class="au-go alt" type="button" id="dn-out">Log out</button></div></div>
+</div></div></div>
+<script src="js/session.js"></script><script src="js/shared-orders.js"></script>
+<script src="js/landing-images.js"></script>
+<script src="js/landing.js"></script></body></html>

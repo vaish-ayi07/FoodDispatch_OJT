@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FoodDispatch – Driver</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Inter:wght@400;500;600;700&family=Kaushan+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/driver.css">
+</head>
+<body>
+<div class="app">
+<header><div><span class="logo">Food<i>Dispatch</i></span><div class="wel" id="wel"></div></div><div style="display:flex;gap:8px;align-items:center"><button class="chip" id="stat" aria-label="Toggle availability">Available</button><button class="av" id="avb" aria-label="Open profile"></button></div></header>
+<div class="marq" aria-hidden="true"><span>Hot food, happy doors &nbsp;•&nbsp; One order at a time &nbsp;•&nbsp; Pick up, ride, deliver &nbsp;•&nbsp; Hot food, happy doors &nbsp;•&nbsp; One order at a time</span></div>
+<main id="v"></main>
+<nav aria-label="Driver navigation">
+<button data-t="q">Deliveries</button><button data-t="a">My trip</button><button data-t="h">History</button><button data-t="p">Profile</button><button data-t="i">About</button>
+</nav>
+</div>
+<div id="live" class="sr" aria-live="polite" style="position:absolute;left:-9999px"></div>
+<script src="js/session.js"></script>
+<script src="js/shared-orders.js"></script>
+<script src="js/maps-config.js"></script>
+<script src="js/driver.js"></script>
+</body>
+</html>

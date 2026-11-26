@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FoodDispatch – Hot food at your door</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Inter:wght@400;500;600;700;800&family=Kaushan+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<link rel="stylesheet" href="css/customer.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+<symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2.4l2.3 11h10.2L20.4 7H6"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4.5 4.5"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+<symbol id="e-bag" viewBox="0 0 64 64"><path fill="var(--c3)" fill-opacity=".28" stroke="none" d="M14 22h36l-3 32H17z"/><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 22h36l-3 32H17z"/><path d="M24 22v-4a8 8 0 0 1 16 0v4"/><path d="M26 34c2 4 10 4 12 0"/></g></symbol>
+<symbol id="e-ticket" viewBox="0 0 64 64"><path fill="var(--c3)" fill-opacity=".28" stroke="none" d="M8 20h48v9a4 4 0 0 0 0 8v9H8v-9a4 4 0 0 0 0-8z"/><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20h48v9a4 4 0 0 0 0 8v9H8v-9a4 4 0 0 0 0-8z"/><path d="M42 20v26" stroke-dasharray="3 5"/><path d="M17 30h14M17 38h9"/></g></symbol>
+<symbol id="e-gift" viewBox="0 0 64 64"><path fill="var(--c3)" fill-opacity=".28" stroke="none" d="M12 28h40v26H12z"/><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 28h40v26H12zM9 20h46v8H9zM32 20v34"/><path d="M32 20c-2-9-14-11-14-5s9 5 14 5zM32 20c2-9 14-11 14-5s-9 5-14 5z"/></g></symbol>
+<symbol id="e-receipt" viewBox="0 0 64 64"><path fill="var(--c3)" fill-opacity=".28" stroke="none" d="M16 8h32v46l-5.3-4-5.4 4-5.3-4-5.4 4-5.3-4-5.3 4z"/><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8h32v46l-5.3-4-5.4 4-5.3-4-5.4 4-5.3-4-5.3 4z"/><path d="M24 20h16M24 29h16M24 38h9"/></g></symbol>
+<symbol id="e-box" viewBox="0 0 64 64"><path fill="var(--c3)" fill-opacity=".28" stroke="none" d="M14 26h36l-4.5 28h-27z"/><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 26h36l-4.5 28h-27z"/><path d="M11 26l6-11h30l6 11"/><path d="M26 15l2-7h8l2 7"/><path d="M26 36c2 4 10 4 12 0"/></g></symbol>
+<symbol id="e-home" viewBox="0 0 64 64"><path fill="var(--c3)" fill-opacity=".28" stroke="none" d="M16 28v24h32V28L32 14z"/><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 31 32 12l23 19M16 27v25h32V27M27 52V38h10v14"/></g></symbol>
+<symbol id="e-dish" viewBox="0 0 64 64"><circle cx="32" cy="32" r="11" fill="var(--c3)" fill-opacity=".28" stroke="none"/><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="11"/><path d="M12 10v14M8 10v8a4 4 0 0 0 8 0v-8M12 24v30M52 10c-6 4-7 14-4 22h4zM52 32v22"/></g></symbol>
+<symbol id="e-scooter" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="46" r="7"/><circle cx="51" cy="46" r="7"/><path d="M15 46h12l7-16h12l5 16M34 30l-3-12h-9M44 30l-2-14h7"/></g></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></symbol>
+</defs></svg>
+
+<header>
+  <button class="hb" data-act="menu" aria-label="Menu"><svg class="ic"><use href="#i-menu"/></svg></button>
+  <a class="brand" href="#" data-go="top">FoodDispatch</a>
+  <div class="search"><input id="q" placeholder="Search dishes or restaurants…" autocomplete="off"><svg class="ic"><use href="#i-search"/></svg><div class="sres" id="sres"></div></div>
+  <div class="eta"><svg class="ic"><use href="#i-bolt"/></svg> Delivering in about <em>2 min</em></div>
+  <button class="navlink" data-act="track">Track order</button>
+  <button class="navlink" data-act="orders">My orders</button>
+  <button class="cart" id="cart" data-act="cart" aria-label="Open cart"><svg class="ic"><use href="#i-cart"/></svg><small id="count">0</small></button>
+  <button class="avatar" data-act="profile" aria-label="Your details"><svg class="ic"><use href="#i-user"/></svg></button>
+</header>
+
+<div class="wrap" id="top">
+  <section class="hero rv">
+    <div class="doodle"></div>
+    <div>
+      <h1>We bring the <em class="s">kitchen</em> to your door</h1>
+      <p>Hot, freshly cooked food from kitchens near you, at your door in minutes. First order? Take ₹100 off.</p>
+      <button class="btn" data-go="need">Order now</button>
+    </div>
+    <div class="hero-img">
+      <img class="ph ph1" data-i="paneer" alt="Paneer butter masala with naan">
+      <img class="ph ph2" data-i="momos" alt="Momos">
+      <img class="ph ph3" data-i="tikka" alt="Chicken tikka">
+      <div class="note">piping hot, always<svg viewBox="0 0 60 46"><path d="M4 40C10 14 30 6 52 10M52 10l-12-7M52 10l-9 12"/></svg></div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="mq" id="mq"></div></div>
+
+  <div class="cats rv" id="cats"></div>
+
+  <div class="sh rv" id="need"><h2>You might <em class="s">need</em></h2><a href="#" data-act="all">See more →</a></div>
+  <div class="grid rv" id="g1"></div>
+
+  <div class="sh rv"><h2>Featured restaurants</h2><a href="#" data-act="rests">Visit all restaurants →</a></div>
+  <div class="stores rv" id="stores"></div>
+
+  <div class="sh rv" id="deal"><h2>Deal of the <em class="s">day</em></h2><a href="#" data-act="all">See more →</a></div>
+  <section class="detail rv">
+    <div class="badge">40% off</div>
+    <div>
+      <div class="main-img" id="mainBox"><img id="mainImg" alt=""></div>
+      <div class="thumbs" id="thumbs"></div>
+    </div>
+    <div class="info">
+      <div class="timer"><svg class="ic"><use href="#i-clock"/></svg> <span id="timer">270 : 13 : 10 : 32</span></div>
+      <small>Napoli Pizzeria</small>
+      <h3>Italian Feast Combo</h3>
+      <div class="rate"><span class="st">★</span> 4.5 Rating <u>(15 reviews)</u></div>
+      <div class="dbig">₹799<s>₹1,329</s></div>
+      <div class="acts"><button class="pill" id="dealAdd"><svg class="ic"><use href="#i-cart"/></svg> Add to bucket</button><button class="pill g" id="dealBuy">Buy with FoodPay</button></div>
+      <div class="links"><u id="wish">♡ ADD TO WISHLIST</u><u data-t="Added to compare list">▤ Compare with other vendor</u></div>
+      <div class="meta"><span class="hot"><svg class="ic"><use href="#i-flame"/></svg> 100 sold in last 35 hour</span>SKU: FD3442<br>Categories: <u>Pizza</u>, <u>Italian</u>, <u>Pasta</u>, <u>Dinner</u>
+      <p>A veg supreme pizza, baked lasagna, tomato bruschetta and a grilled sandwich. Enough for two, delivered hot.</p></div>
+      <div class="dots" id="dots"></div>
+    </div>
+  </section>
+
+  <div class="promos rv">
+    <div class="promo p1" data-go="weekly"><div class="t"><b>Save</b><h5>₹250</h5><p>On your first order above ₹799</p></div><div class="b"><img data-i="momos" alt=""></div></div>
+    <div class="promo p2" data-go="weekly"><div class="t"><b>Discount</b><h5>30%</h5><p>On sweets and bakery, all week</p></div><div class="b"><img data-i="rasgulla" alt=""></div></div>
+    <div class="promo p3" data-go="weekly"><div class="t"><b>Up to</b><h5>50%</h5><p>On selected chaat and street food</p></div><div class="b"><img data-i="chaat" alt=""></div></div>
+    <div class="promo p4" data-go="weekly"><div class="t"><b>Free</b><h5>SHIP</h5><p>Delivery is free within 3 km</p></div><div class="b"><img data-i="sesame" alt=""></div></div>
+  </div>
+
+  <div class="sh rv" id="weekly"><h2>Weekly <em class="s">best</em> selling items</h2><a href="#" data-act="all">See more →</a></div>
+  <div class="tabs" id="tabs"></div>
+  <p class="tabinfo" id="tabInfo"></p>
+  <div class="grid" id="g2"></div>
+
+  <section class="dl rv">
+    <div>
+      <h3>Stay home and get all your <em class="s">cravings</em> from our kitchen!</h3>
+      <p>Download the app from the App Store or Google Play.</p>
+      <div class="sb"><button data-t="Opening Google Play…">▶ Google Play</button><button data-t="Opening the App Store…">App Store</button></div>
+    </div>
+    <div class="duo"><img class="a" data-i="chole" alt=""><img class="b" data-i="tikka" alt=""><img class="c" data-i="dal" alt=""></div>
+  </section>
+
+  <div class="offers rv">
+    <div class="offer o1" data-t="Free-delivery offer applied to your next order"><div><em>Free delivery</em><br>Get up to 50% off<br>Delivery by 12:15pm<br>Fast and free</div><img data-i="lollipop" alt=""></div>
+    <div class="offer o2" data-t="Membership 5% discount applied to your next order"><div><em>Membership Card</em><br>You can enjoy a 5% discount using our health card</div><img data-i="croissant" alt=""></div>
+  </div>
+
+  <div class="sh rv"><h2>Just for <em class="s">you</em></h2><a href="#" data-act="all">See more →</a></div>
+  <div class="grid rv" id="g4"></div>
+</div>
+
+<section class="best rv" id="best">
+  <h2>We always provide<br>you the <em class="s">best</em> in town</h2>
+  <p>Since 2007 we have been cooking, packing and delivering food that people actually look forward to.</p>
+  <div class="arches">
+    <div class="arch" data-t="Order &amp; Collect is coming soon">Order and Collect<svg class="emo"><use href="#e-bag"/></svg></div>
+    <div class="arch" data-t="Gift vouchers are coming soon">FoodDispatch Gift vouchers.<svg class="emo"><use href="#e-ticket"/></svg></div>
+    <div class="arch" data-t="Gift cards are coming soon">Present a Gift card<svg class="emo"><use href="#e-gift"/></svg></div>
+    <div class="arch" data-t="Invoice payments are coming soon">Pay your tabby invoice<svg class="emo"><use href="#e-receipt"/></svg></div>
+    <div class="arch" data-t="Order &amp; Collect is coming soon">Order and Collect<svg class="emo"><use href="#e-box"/></svg></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fg">
+      <div><a class="brand" href="#" data-go="top">FoodDispatch</a><p>Hot meals from the best kitchens, delivered at lightning speed.</p><b style="color:#fff">Accepted Payments</b><div class="pay"><span data-t="UPI selected">UPI</span><span data-t="VISA selected">VISA</span><span data-t="Mastercard selected">Mastercard</span><span data-t="RuPay selected">RuPay</span><span data-t="Cash on delivery selected">Cash on delivery</span></div></div>
+      <div><h6>Department</h6><ul><li data-cat="Fast food">Fast food</li><li data-cat="Main course">Main course</li><li data-cat="South Indian">South Indian</li><li data-cat="Italian">Italian</li><li data-cat="Desserts &amp; Bakery">Desserts &amp; Bakery</li></ul></div>
+      <div><h6>About us</h6><ul><li>About FoodDispatch</li><li>Careers</li><li>News &amp; Blog</li><li>Help</li><li>Press Center</li></ul></div>
+      <div><h6>Services</h6><ul><li>Gift Card</li><li>Mobile App</li><li>Shipping &amp; Delivery</li><li>Order Pickup</li></ul></div>
+      <div><h6>Help</h6><ul><li>FoodDispatch Help</li><li>Returns</li><li data-act="track">Track orders</li><li>Contact us</li></ul></div>
+    </div>
+    <div class="fb"><span><span data-t="Seller sign-up is coming soon">Become Seller</span><span data-t="Gift cards are coming soon">Gift Cards</span><span data-t="Help centre is coming soon">Help Center</span></span><span><span data-t="Terms of Use">Terms of Use</span><span data-t="Privacy Policy">Privacy Policy</span></span><span>All Right reserved by FoodDispatch · 2026</span></div>
+  </div>
+</footer>
+
+<div class="ov" id="ov"></div>
+<aside class="drawer" id="cartD"><div class="dh"><h3>Your bucket</h3><button data-act="close" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button></div><div class="db" id="cartB"></div><div class="df" id="cartF"></div></aside>
+<aside class="drawer" id="ordD"><div class="dh"><h3>Order history</h3><button data-act="close" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button></div><div class="db" id="ordB"></div></aside>
+<aside class="drawer" id="profD" aria-label="Your details"><div class="dh"><h3>Your details</h3><button data-act="close" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button></div><div class="db" id="profB"></div></aside>
+<aside class="drawer" id="menuD"><div class="dh"><h3>FoodDispatch</h3><button data-act="close" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button></div><div class="db ml" id="menuB"></div></aside>
+<div class="modal" id="brM"><div class="dh"><div class="dhl"><button class="bk" id="brBack" data-nav="back" aria-label="Back">←</button><h3 id="brT"></h3></div><button data-act="close" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button></div><div class="db" id="brB"></div><div class="brbar" id="brBar" hidden><span id="brBarT"></span><button class="btn" data-act="cart">View bucket</button></div></div>
+<div class="cf" id="cfM" hidden><div class="cfb"><h4>Start a new bucket?</h4><p id="cfT"></p><div class="cfa"><button class="btn light" data-cf="no">Keep current</button><button class="btn" data-cf="yes">Start new bucket</button></div></div></div>
+<div class="modal trkm" id="trackM"><div class="dh"><h3>Track your order</h3><button data-act="close" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button></div><div class="tgrid"><div id="map"></div><div class="tside" id="tside"></div></div></div>
+<div class="modal trkm" id="dropM"><div class="dh"><h3>Confirm drop-off</h3><button data-act="close" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button></div>
+ <div class="dmwrap"><div id="dmap" role="application" aria-label="Delivery map"></div>
+  <div class="dm-tools"><button id="dmLocate" class="btn light" type="button"><svg class="ic"><use href="#i-target"/></svg><span>Use current location</span></button><p class="dm-hint">Drag the pin, or tap the map, to mark your exact gate or building.</p>
+  <p class="dm-prov" id="dmProv" hidden></p></div>
+  <section class="dm-card" id="dmCard" aria-live="polite">
+   <div class="lb">Estimated delivery</div><div class="dm-eta"><span id="dmEta">--</span><small> min</small></div><div class="dm-bd" id="dmBreak">Calculating the route…</div>
+   <dl class="dm-facts"><div><dt>Distance</dt><dd id="dmDist">--</dd></div><div><dt>Delivery fee</dt><dd id="dmFee">--</dd></div><div><dt>Order total</dt><dd id="dmTotal">--</dd></div></dl>
+   <p class="dm-note" id="dmNote" role="alert" hidden></p>
+   <button id="dmConfirm" class="btn dark" type="button" disabled>Confirm and continue to payment</button>
+   <p class="dm-demo">Demo checkout. Live tracking starts as soon as you order.</p>
+  </section></div></div>
+<div class="cf" id="cancelM" hidden role="dialog" aria-modal="true" aria-labelledby="cancelT"><div class="cfb"><h4 id="cancelT">Cancel this order?</h4><p id="cancelP"></p><div class="cfa"><button class="btn light" data-cx="no">Keep order</button><button class="btn danger" data-cx="yes">Cancel order</button></div></div></div>
+<div class="cf" id="rateM" hidden role="dialog" aria-modal="true" aria-labelledby="rateT"><div class="cfb"><h4 id="rateT">How was your delivery?</h4><p id="rateS"></p>
+<div class="rq"><b id="rdL">Rate your driver</b><div class="stars" role="radiogroup" aria-labelledby="rdL" data-k="driver"></div></div>
+<div class="rq"><b id="rfL">Rate the food quality</b><div class="stars" role="radiogroup" aria-labelledby="rfL" data-k="food"></div></div>
+<div class="cfa"><button class="btn light" data-rate="skip">Skip</button><button class="btn" data-rate="send" disabled>Submit rating</button></div>
+<button class="dlinv" data-rate="inv">Download invoice</button></div></div>
+<div class="modal paym" id="payM" role="dialog" aria-modal="true" aria-labelledby="payT"><div class="dh"><div class="dhl"><button class="bk" data-act="dropoff" aria-label="Back to drop-off">←</button><h3 id="payT">Payment</h3></div><button data-act="close" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button></div><div class="db paygrid" id="payB"></div><div class="paywait" id="payWait" hidden></div></div>
+<div id="sms" role="status" aria-live="polite"></div>
+<div class="toast" id="toast"></div>
+
+<script src="js/session.js"></script>
+<script src="js/customer-images.js"></script>
+<script src="js/shared-orders.js"></script>
+<script src="js/maps-config.js"></script>
+<script src="js/customer.js"></script>
+</body>
+</html>

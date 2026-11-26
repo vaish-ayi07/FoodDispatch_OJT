@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FoodDispatch · Restaurant queue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Inter:wght@400;500;600;700&family=Kaushan+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/restaurant.css">
+</head>
+<body>
+<div class="app">
+<header class="bar">
+  <div class="brand">FoodDispatch<small>Order status &amp; driver stream</small></div>
+  <nav class="nav" aria-label="Sections"><button data-v="orders" aria-current="page">Orders</button><button data-v="analytics">Analytics</button><button data-v="profile">Profile</button></nav>
+  <div class="owner"><span class="av" id="av" aria-hidden="true"></span><span><b id="pname"></b> · <span id="prole"></span></span><button class="link" id="signout">Sign out</button></div>
+</header>
+<main id="v-orders">
+  <div class="top">
+    <div><h1>Order queue</h1><p class="sub"><span class="rname js-rest">Spice Route Kitchen</span> · new, preparing and ready orders.</p></div>
+    <span class="role">Viewing as: Restaurant</span>
+  </div>
+  <div class="tools">
+    <div class="search"><label for="q">Search orders</label><input id="q" type="search" placeholder="Order ID, customer or item" autocomplete="off"></div>
+    <div class="chips" id="chips" role="group" aria-label="Filter by status"></div>
+    <button class="btn out" id="exportorders" type="button">Export visible CSV</button><button class="btn out" id="neworder">+ New order</button>
+  </div>
+  <div class="pool" id="pool"></div>
+  <div class="board" id="board"></div>
+  <div class="msg" id="msg" role="status" aria-live="polite">Welcome back. Accept new orders to start the kitchen clock.</div>
+  <section class="track" aria-label="Live driver tracking">
+<div class="thead"><h2>Live driver tracking</h2><div class="acts" style="margin:0;align-items:center"><span class="tag live" id="stag">Live · simulated</span><button class="btn out sm" id="fitall">Fit all drivers</button><button class="btn out sm" id="resetdata">Reset demo data</button><select id="spd" class="chip" aria-label="Simulation speed"><option value="10">Demo speed ×10</option><option value="1">Real speed (20 km/h)</option></select><button class="btn out sm" id="pause">Pause stream</button><button class="btn out sm" id="refresh">Refresh now</button></div></div>
+<div class="tgrid"><div><div class="mapbox"><div id="map" role="region" aria-label="Live map showing the restaurant, customers and drivers"></div></div><div class="note wait" id="mapnote" hidden></div><div class="legend"><span><b style="color:var(--cocoa-d)">R</b> Restaurant</span><span>Every driver has their own colour; each customer pin matches its driver</span><span id="sum"></span><span>Google Maps with road routes. Driver positions are simulated, not real GPS.</span></div></div><ul class="dl" id="dl" aria-label="Driver positions and ETA"></ul></div>
+</section>
+<div class="log"><h2>Recent activity</h2><ol id="log"></ol></div>
+</main>
+<main id="v-analytics" hidden>
+  <div class="top"><div><h1>Today’s analytics</h1><p class="sub"><span class="rname js-rest"></span> · <span id="a-date"></span></p></div><div class="chips" id="mt" role="group" aria-label="Chart metric"><button class="chip" data-m="orders" aria-pressed="true">Orders</button><button class="chip" data-m="sales" aria-pressed="false">Sales (₹)</button></div></div>
+  <div class="kpis" id="kpis"></div>
+  <div class="apanels">
+    <h2 style="grid-column:1/-1;margin:0 0 -8px">Orders received</h2>
+    <section class="panel"><h2>Order journey</h2><div class="hz" id="a-fun"></div><p class="meta" id="a-fun-c"></p></section>
+    <section class="panel"><h2>Latest orders received</h2><div id="a-recent"></div></section>
+    <section class="panel wide"><h2>Orders by hour</h2><p class="meta" id="a-peak"></p><div class="hb" id="a-hour"></div></section>
+    <section class="panel"><h2>Top items</h2><div class="hz" id="a-items"></div><p class="meta" id="a-items-c"></p></section>
+    <section class="panel"><h2>Orders by area</h2><div class="hz" id="a-area"></div><p class="meta" id="a-area-c"></p></section>
+    <section class="panel"><h2>Deliveries per driver</h2><div class="hz" id="a-drv"></div><p class="meta" id="a-drv-c"></p><p class="meta" id="a-miss"></p></section>
+    <section class="panel"><h2>Queue right now</h2><div class="hz" id="a-q"></div><p class="meta" id="a-q-c"></p></section>
+    <h2 style="grid-column:1/-1;margin:10px 0 -8px">Cancelled orders</h2>
+    <section class="panel"><h2>Why orders were cancelled</h2><div class="hz" id="c-why"></div><p class="meta" id="c-why-c"></p></section>
+    <section class="panel"><h2>Most cancelled items</h2><div class="hz" id="c-items"></div><p class="meta" id="c-items-c"></p></section>
+    <section class="panel wide"><h2>Cancelled order log</h2><p class="meta" id="c-count"></p><div id="c-list"></div></section>
+  </div>
+  <p class="meta" style="margin-top:18px">Earlier orders today are demo data. Accepting, cancelling, handing over and delivering orders updates these numbers.</p>
+</main>
+<main id="v-profile" hidden>
+  <div class="top"><div><h1>Profile</h1><p class="sub">Your details and restaurant settings.</p></div><span class="role" id="pf-role"></span></div>
+  <div class="pgrid">
+    <aside class="panel pcard"><div class="avl" id="pf-av"></div><div class="pn" id="pf-name"></div>
+      <dl><div><dt>Restaurant</dt><dd id="pf-rn"></dd></div><div><dt>Role</dt><dd id="pf-rr"></dd></div><div><dt>Signed in at</dt><dd id="pf-since"></dd></div></dl></aside>
+    <section class="panel"><h2>Edit details</h2>
+      <form id="pf-form" novalidate class="fgrid">
+        <div class="f2"><div><label for="f-name">Your name</label><input class="fld" id="f-name" type="text" autocomplete="name"></div>
+        <div><label for="f-role">Role</label><select class="fld" id="f-role"><option>Owner</option><option>Manager</option><option>Head chef</option><option>Cashier</option></select></div></div>
+        <div><label for="f-rest">Restaurant name</label><input class="fld" id="f-rest" type="text"></div>
+        <div class="f2"><div><label for="f-email">Email</label><input class="fld" id="f-email" type="email" autocomplete="email"></div>
+        <div><label for="f-phone">Phone</label><input class="fld" id="f-phone" type="tel" autocomplete="tel"></div></div>
+        <div class="msg" id="pf-msg" role="status" hidden style="margin:0"></div>
+        <div class="acts" style="margin:0"><button class="btn" type="submit">Save profile</button></div>
+      </form></section>
+  </div>
+</main>
+</div>
+<script src="js/session.js"></script>
+<script src="js/shared-orders.js"></script>
+<script src="js/maps-config.js"></script>
+<script src="js/restaurant.js"></script>
+</body>
+</html>
